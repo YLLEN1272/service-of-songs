@@ -1,365 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Service of Songs — Chinyere Roseline Ngwaba</title>
+<meta charset="UTF-8" />
+<title>Service of Songs for Chinyere</title>
 
-  <!-- Elegant fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#f4f3f6;
-      --card:#ffffff;
-      --accent:#283a6b;     /* deep blue */
-      --muted:#6b7280;
-      --gold:#c8a15b;
-      --radius:14px;
+<style>
+    body {
+        font-family: Georgia, serif;
+        margin: 0;
+        background: #f7f7f7;
+        line-height: 1.6;
+        color: #222;
     }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: 'Lato', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #f7f6f8 0%, #eef0f6 100%);
-      color:#222;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 30px 20px;
+        background: white;
     }
 
-    .wrap{
-      max-width:950px;
-      margin:28px auto;
-      padding:20px;
+    h1 {
+        font-size: 36px;
+        margin-bottom: 5px;
+        color: #122247;
     }
 
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:0 10px 30px rgba(18,25,40,0.08);
-      overflow:hidden;
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:0;
-      align-items:stretch;
+    .subtitle {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
     }
 
-    /* left: slideshow / header */
-    .left{
-      padding:28px;
-      min-height:410px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      gap:14px;
-      position:relative;
+    /* Full photo styling */
+    .hero-photo {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 25px;
     }
 
-    .title{
-      font-family: 'Playfair Display', serif;
-      color:var(--accent);
-      font-size:30px;
-      margin:0 0 4px 0;
-      line-height:1.05;
-      letter-spacing:0.2px;
-      text-align:left;
+    /* RSVP button */
+    .rsvp-btn {
+        display: inline-block;
+        background: #0a4b8f;
+        color: white;
+        padding: 12px 22px;
+        border-radius: 6px;
+        font-weight: bold;
+        text-decoration: none;
+        margin-bottom: 25px;
     }
 
-    .subtitle{
-      color:var(--muted);
-      font-size:14px;
-      margin:0 0 8px 0;
+    .rsvp-btn:hover {
+        background: #063561;
     }
 
-    /* slideshow */
-    .slideshow{
-      position:relative;
-      width:100%;
-      border-radius:10px;
-      overflow:hidden;
-      background:linear-gradient(180deg,#eceef5,#ffffff);
-      box-shadow: inset 0 -40px 80px rgba(0,0,0,0.02);
+    .section-title {
+        font-size: 24px;
+        margin-top: 30px;
+        color: #122247;
     }
 
-    .slides{
-      position:relative;
-      height:320px;
+    ul {
+        padding-left: 20px;
     }
+</style>
 
-    .slides img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      position:absolute;
-      inset:0;
-      opacity:0;
-      transform:scale(1.02);
-      transition:opacity .9s ease, transform .9s ease;
-    }
-
-    .slides img.active{
-      opacity:1;
-      transform:scale(1);
-    }
-
-    /* arrows */
-    .arrow{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      background:rgba(0,0,0,0.45);
-      color:white;
-      border:none;
-      width:36px;
-      height:36px;
-      border-radius:8px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      font-size:18px;
-      z-index:6;
-    }
-    .arrow.left{ left:12px; }
-    .arrow.right{ right:12px; }
-
-    .dots{
-      display:flex;
-      gap:8px;
-      justify-content:center;
-      margin-top:12px;
-    }
-    .dot{
-      width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.12);cursor:pointer;
-    }
-    .dot.active{ background:var(--accent); box-shadow:0 2px 6px rgba(40,60,110,0.18); }
-
-    /* right: event details */
-    .right{
-      padding:30px;
-      background:linear-gradient(180deg,#fff,#fbfbfd);
-    }
-
-    .info-block{ margin-bottom:14px; animation:fadeUp .6s ease both; }
-    .label{ color:var(--muted); font-size:13px; margin-bottom:6px; display:block; }
-    .value{ font-weight:700; color:#111; font-size:16px; margin-bottom:6px; }
-
-    .btn{
-      display:inline-block;
-      background:var(--accent);
-      color:white;
-      padding:12px 16px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-      box-shadow: 0 6px 18px rgba(40,58,110,0.12);
-    }
-
-    .secondary{
-      display:inline-block;
-      background:transparent;
-      border:1px solid #e6e6ea;
-      color:var(--muted);
-      padding:10px 14px;
-      border-radius:8px;
-      text-decoration:none;
-      margin-left:10px;
-    }
-
-    .section-title{
-      font-family:'Playfair Display', serif;
-      color:var(--accent);
-      margin-top:16px;
-      margin-bottom:8px;
-      font-size:18px;
-    }
-
-    ul { margin:0 0 0 18px; padding:0; color:#333; line-height:1.7; }
-
-    .qr-wrap { text-align:center; margin-top:14px; }
-    .qr-wrap img{ width:160px; border-radius:8px; border:1px solid #eee; background:white; padding:6px; box-shadow:0 4px 20px rgba(0,0,0,0.04); }
-    .zphone{ font-size:14px; color:var(--muted); margin-top:8px; }
-
-    footer.note { text-align:center; margin-top:18px; color:var(--muted); font-size:14px; }
-
-    /* small screens */
-    @media (max-width:900px){
-      .card{ grid-template-columns: 1fr; }
-      .right{ order:2 }
-      .left{ order:1 }
-      .slides{ height:300px; }
-    }
-
-    /* animation */
-    @keyframes fadeUp {
-      from{ opacity:0; transform:translateY(8px); }
-      to{ opacity:1; transform:translateY(0); }
-    }
-  </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
 
-      <!-- LEFT: Slideshow and header -->
-      <div class="left">
-        <div>
-          <div class="title">SERVICE OF SONGS</div>
-          <div class="subtitle">In Honour of Chinyere Roseline Ngwaba (Nee Nwoko) — 1952–2025</div>
-        </div>
+<div class="container">
 
-        <div class="slideshow" aria-hidden="false" role="region" aria-label="Photos">
-          <div class="slides" id="slides">
-            <!-- Add more images here if you upload them to repo (use exact filenames) -->
-            <img src="mummy_photo.jpg" alt="Chinyere Roseline Ngwaba" class="active">
-            <!-- Example for more images:
-            <img src="mummy_photo2.jpg" alt="Another photo">
-            <img src="mummy_photo3.jpg" alt="Another photo">
-            -->
-          </div>
-
-          <button class="arrow left" id="prev" aria-label="Previous photo">&#8249;</button>
-          <button class="arrow right" id="next" aria-label="Next photo">&#8250;</button>
-
-          <div class="dots" id="dots" aria-hidden="false"></div>
-        </div>
-
-        <div class="dots" style="justify-content:center; margin-top:12px;">
-          <small style="color:var(--muted)">Slide image changes every 5 seconds — or use arrows</small>
-        </div>
-      </div>
-
-      <!-- RIGHT: Details -->
-      <aside class="right">
-        <div class="info-block">
-          <span class="label">Date & Time</span>
-          <div class="value">Saturday, January 3, 2026 · 6:00 PM – 10:00 PM (PROMPT)</div>
-        </div>
-
-        <div class="info-block">
-          <span class="label">Venue</span>
-          <div class="value">The Salvation Army<br>20021 Aircraft Drive<br>Germantown, MD 20874</div>
-        </div>
-
-        <div class="info-block">
-          <span class="label">RSVP</span>
-          <a class="btn" href="mailto:justnneka@aol.com?subject=RSVP%20Service%20of%20Songs">Click to RSVP</a>
-          <a class="secondary" href="tel:2408887278">Call 240-888-7278</a>
-        </div>
-
-        <div class="section-title">Program</div>
-        <ul>
-          <li>Opening Prayers</li>
-          <li>Musical Presentations: Goodness of God; In the Garden; He hideth my soul; Nearer my God to thee; Just a closer walk with you; Be still, my soul</li>
-          <li>Brief Biography</li>
-          <li>Song & Speech — By Chinenye (Granddaughter)</li>
-          <li>Reflections — Dr. Victor Poopola</li>
-          <li>Choir Presentations</li>
-          <li>Speech — Daughter</li>
-          <li>Speech — Son-in-law</li>
-          <li>Prayers for the Family</li>
-          <li>Vote of Thanks — By Obi (Son-in-law)</li>
-        </ul>
-
-        <div class="section-title">Refreshments</div>
-        <ul>
-          <li>Meat pies</li>
-          <li>Puff puff</li>
-          <li>Doughnuts</li>
-          <li>Coated peanuts</li>
-          <li>Fruits</li>
-          <li>Grilled fish</li>
-          <li>Peppered meat</li>
-          <li>Grilled chicken</li>
-        </ul>
-        <p style="margin-top:8px"><strong>Drinks:</strong> Coffee, Tea, Water, Apple juice, Pineapple juice</p>
-
-        <div class="section-title">Support the Family</div>
-        <div class="qr-wrap">
-          <img src="zelle_qr_code.jpg" alt="Zelle QR code">
-          <div class="zphone">Or send via Zelle to: <strong>240-888-7278</strong></div>
-          <div class="small-text" style="margin-top:12px">Thank you for joining us to celebrate a beautiful life well lived.</div>
-        </div>
-
-        <footer class="note">If you'd like edits (colors, more photos, printable program), I can update it for you.</footer>
-      </aside>
-
+    <h1>SERVICE OF SONGS</h1>
+    <div class="subtitle">
+        In Honour of Chinyere Roseline Ngwaba (Nee Nwoko) — 1952–2025
     </div>
-  </div>
 
-  <script>
-    // Simple slideshow that works with 1 or many images
-    (function(){
-      const slidesEl = document.getElementById('slides');
-      const slideImgs = Array.from(slidesEl.querySelectorAll('img'));
-      const dotsEl = document.getElementById('dots');
-      const prev = document.getElementById('prev');
-      const next = document.getElementById('next');
-      let idx = 0;
-      let timer = null;
-      const delay = 5000;
+    <!-- FULL PHOTO (NOT CUT) -->
+    <img src="mummys photo.jpg" class="hero-photo">
 
-      function createDots(){
-        dotsEl.innerHTML = '';
-        slideImgs.forEach((img,i)=>{
-          const d = document.createElement('div');
-          d.className = 'dot' + (i===0? ' active':'');
-          d.dataset.i = i;
-          d.addEventListener('click', ()=> goTo(i) );
-          dotsEl.appendChild(d);
-        });
-      }
+    <!-- FIXED RSVP EMAIL -->
+    <a class="rsvp-btn" href="mailto:justnneka@aol.com?subject=RSVP">
+        Click to RSVP
+    </a>
 
-      function show(i){
-        slideImgs.forEach((img, j)=>{
-          img.classList.toggle('active', j===i);
-        });
-        Array.from(dotsEl.children).forEach((d, j)=> d.classList.toggle('active', j===i));
-      }
-
-      function goTo(i){
-        idx = i;
-        show(idx);
-        resetTimer();
-      }
-
-      function nextSlide(){
-        idx = (idx + 1) % slideImgs.length;
-        show(idx);
-      }
-
-      function prevSlide(){
-        idx = (idx - 1 + slideImgs.length) % slideImgs.length;
-        show(idx);
-      }
-
-      function resetTimer(){
-        if(timer) clearInterval(timer);
-        if(slideImgs.length>1) timer = setInterval(nextSlide, delay);
-      }
-
-      // init
-      if(slideImgs.length===0) return;
-      createDots();
-      show(0);
-      resetTimer();
-
-      next.addEventListener('click', ()=>{
-        nextSlide(); resetTimer();
-      });
-      prev.addEventListener('click', ()=>{
-        prevSlide(); resetTimer();
-      });
-
-      // keyboard
-      document.addEventListener('keydown', (e)=>{
-        if(e.key==='ArrowRight') { nextSlide(); resetTimer(); }
-        if(e.key==='ArrowLeft') { prevSlide(); resetTimer(); }
-      });
-
-    })();
-  </script>
-</body>
-</html>
+    <h2 class="section-title">Program</h2>
+    <ul>
+        <li>Opening Prayers</li>
+        <li>Musical Presentations: Goodness of God; In the Garden; He Hideth My Soul; Nearer My God to Thee; Just a Closer Walk with You; Be Still, My Soul</li>
+        <li>Brief Biography</li>
+        <li>Song & Speech — By Chinenye (Granddaughter)</li>
+        <li>Reflections — Dr. Victor Poopola</li>
+        <li>Choir Presentations</li>
+        <li>Speech — Daughter</li>
+        <li>Speech — Son-in-law</li>
+        <li
